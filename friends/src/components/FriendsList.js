@@ -1,7 +1,7 @@
 import React from 'react';
 import Friend from './Friend';
 import { connect } from 'react-redux';
-import { getData, addFriendAction } from '../actions';
+import { getData, addFriendAction, deleteFriendAction } from '../actions';
 
 class FriendsList extends React.Component {
 
@@ -34,6 +34,11 @@ class FriendsList extends React.Component {
           this.props.addFriendAction(this.state.friend);
       }
 
+      deleteFriend = (e, id) => {
+          e.preventDefault();
+        this.props.deleteFriendAction(id);
+      }
+
     render(){
         return (
             <div>
@@ -44,6 +49,7 @@ class FriendsList extends React.Component {
                         <Friend
                             key = {friend.id}
                             friend = {friend}
+                            deleteFriend = {this.deleteFriend}
                         />
                     )
                   })
@@ -83,4 +89,4 @@ const mapStateToProps = state => ({
     savingFriends: state.savingFriends
 });
 
-export default connect(mapStateToProps, { getData, addFriendAction })(FriendsList) 
+export default connect(mapStateToProps, { getData, addFriendAction, deleteFriendAction })(FriendsList) 

@@ -1,4 +1,4 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAIL, FETCH_START, FETCH_SUCCESS, ADD_START, ADD_SUCCESS, ADD_FAIL } from "../actions";
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAIL, FETCH_START, FETCH_SUCCESS, ADD_START, ADD_SUCCESS, ADD_FAIL, DELETE_START, DELETE_SUCCESS, DELETE_FAIL } from "../actions";
 
 const initialState = {
     deletingFriend: false,
@@ -63,6 +63,25 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 savingFriends: false
+            }
+        case DELETE_START:
+            return{
+                ...state,
+                deletingFriend: true,
+                error: '',
+            }
+        case DELETE_SUCCESS:
+            return{
+                ...state,
+                deletingFriend: false,
+                error: '',
+                friends: action.payload
+            }
+        case DELETE_FAIL:
+            return{
+                ...state,
+                deletingFriend: false,
+                error: action.payload
             }
         default:
             return state;

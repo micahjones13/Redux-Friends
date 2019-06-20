@@ -13,6 +13,10 @@ export const ADD_START = 'ADD_START';
 export const ADD_SUCCESS = 'ADD_SUCCESS';
 export const ADD_FAIL = 'ADD_FAIL';
 
+export const DELETE_START = 'DELETE_START';
+export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+export const DELETE_FAIL = 'DELETE_FAIL';
+
 export const login = creds => dispatch =>{
 dispatch({ type: LOGIN_START });
 return axiosWithAuth()
@@ -57,4 +61,18 @@ export const addFriendAction = (friend) => dispatch => {
         dispatch({ type: ADD_FAIL, payload: err.response })
     })
 
+}
+
+export const deleteFriendAction = (id) => dispatch =>{
+    dispatch({ type: DELETE_START });
+    axiosWithAuth()
+    .delete(`/friends/${id}`)
+    .then(res => {
+        console.log('delete', res);
+        dispatch({ type: DELETE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+        console.log('delete error', err.response);
+        dispatch({ type: DELETE_FAIL, payload: err.response })
+    })
 }
